@@ -1,7 +1,7 @@
 
 <?php
 
-require_once __DIR__ . 'vendor/autoload.php';
+require_once('vendor/autoload.php');
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -29,24 +29,22 @@ if ($_POST["password"] !== $_POST["password_confirmation"]) {
     die("Passwords must match");
 }
 
-$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+//$password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
+$password = $_POST['password'];
 $email = $_POST["email"];
 $name = $_POST["name"];
 
-echo $email; echo $name; echo $password_hash;
-
-$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest', 'testHost');
 $channel = $connection->channel();
 
-$channel->queue_declare('hello', false, false, false, false);
+$channel->queue_declare('testQueue', true);
 
-$msg = array();
-$msg['name'] = $name;
-$msg['email'] = $email;
-$msg['password'] = $password_hash;
+$registerCreds = json_encode(['name'=> $name, 'email' => $email, 'password' => $password]);
 
-$msg_array = new AMQPMessage($msg);
-$channel->basic_publish($msg_array, '', 'hello');
+$msg = new AMQPMessage($registerCreds);
+
+$channel->basic_publish($msg, 'testExchange', 'user');
+
 
 echo "sent message";
 
