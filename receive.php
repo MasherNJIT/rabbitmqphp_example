@@ -3,10 +3,10 @@
 require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 
-$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest');
+$connection = new AMQPStreamConnection('localhost', 5672, 'guest', 'guest','testHost');
 $channel = $connection->channel();
 
-$channel->queue_declare('hello', false, false, false, false);
+$channel->queue_declare('testQueue',false,true,false,false);
 
 echo " [*] Waiting for messages. To exit press CTRL+C\n";
 
@@ -20,8 +20,6 @@ $callback = function ($msg) {
   $password_hash = password_hash($password, PASSWORD_DEFAULT);
   // echo $password;
   // echo $password_hash;
-
-
   $mysqli = require __DIR__ . "/database.php";
 
   $sql = "INSERT INTO users (uname, email, password_hash)
@@ -45,10 +43,10 @@ $callback = function ($msg) {
     } else {
         die($mysqli->error . " " . $mysqli->errno);
     }
-  }
+}
 };
 
-$channel->basic_consume('hello', '', false, true, false, false, $callback);
+$channel->basic_consume('testQueue','', false, true, false, false, $callback);
 
 try {
     $channel->consume();
