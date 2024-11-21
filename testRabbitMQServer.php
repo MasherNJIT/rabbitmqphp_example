@@ -21,6 +21,7 @@ function doLogin($username,$password)
    	            return true;
 		} else {
 			return false;
+		}
 	}
 }
 
