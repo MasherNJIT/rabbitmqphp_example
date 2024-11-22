@@ -10,7 +10,7 @@ function doLogin($username,$password)
 	var_dump($request);
 	$username = $request['username'];
 	$password = $request['password'];
-	$mysqli = /*database connection */
+	$mysqli = require __DIR__ . "/database.php";
 	$sql = sprintf('SELECT password_hash FROM
        	users WHERE uname ="%s"', $mysqli->real_escape_string($username));
 	$result = $mysqli->query($sql);
