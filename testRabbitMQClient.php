@@ -15,9 +15,17 @@ else
 }
 
 $request = array();
+/*
 $request['type'] = "Login";
 $request['username'] = "steve";
 $request['password'] = "password";
+^Use for testing purposes only without login page^
+*/ 
+
+$request['type'] = "Login";
+$request['username'] = $_POST['username'];
+$request['password'] = $_POST['password'];
+
 $request['message'] = $msg;
 $response = $client->send_request($request);
 //$response = $client->publish($request);
@@ -25,11 +33,12 @@ $response = $client->send_request($request);
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the login is successful 
 {
-  header("Location: index.php");
+  //header("Location: index.php"); NOTE: commented for testing purposes 
+  echo "Heres the username" .$request['username'].   "and heres the password"  .$request['password']; //NOTE: this is just testing to make sure that hte username and password went over
 }
-else if ($response['returnCode'] == 0) //returns user back to login page 
+else if ($response['returnCode'] == 0) //returns user back to login page if login is a failure 
 {
-  header("Location: index.html");
+  //header("Location: index.html");
 }
 
 echo "client received response: ".PHP_EOL;

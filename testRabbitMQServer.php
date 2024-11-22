@@ -23,7 +23,8 @@ function requestProcessor($request) //this is what sends return code
   switch ($request['type'])
   {
     case "login":
-      return doLogin($request['username'],$request['password']);
+      //return doLogin($request['username'],$request['password']);
+      echo $request['username'] . $request['password'] //tests to make sure the username and password made it over to the database
     case "validate_session":
       return doValidate($request['sessionId']);
   }
