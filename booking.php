@@ -73,13 +73,14 @@
 </head>
 <body>
     <div class="form-container">
-        <!--  <?php 
-        // Display success or error message if available
+         <?php
+	 /* 
         if (isset($_SESSION['message'])) {
             echo "<p class='message'>{$_SESSION['message']}</p>";
-            unset($_SESSION['message']); // Clear the message after display
+            unset($_SESSION['message']);
         }
-        ?>-->
+	*/	     
+        ?>
         <h1>Hotel Booking</h1>
         <form action="rate-review-handler.php" method="post" enctype="multipart/form-data">
             <label for="bookerName">Name of Booker</label>
