@@ -4,26 +4,26 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
-function doLogin($username,$password)
+function doLogin($username, $password)
 {
-    // lookup username in database
-	var_dump($request);
-	$username = $request['username'];
-	$password = $request['password'];
-	$mysqli = require __DIR__ . "/database.php";
-	$sql = sprintf('SELECT password_hash FROM
-       	users WHERE uname ="%s"', $mysqli->real_escape_string($username));
-	$result = $mysqli->query($sql);
-	$user = $result->fetch_assoc();
-	// check password
-	if ($statement->fetch()) {
-		if (password_verify($password, $user["password_hash"])) {
-   	            return true;
-		} else {
-			return false;
-		}
-	}
+    echo $username;	
+    $mysqli = require __DIR__ . "/database.php";
+    $sql = sprintf('SELECT password_hash FROM users WHERE uname = "%s"', $mysqli->real_escape_string($username));
+    echo $username;
+    $result = $mysqli->query($sql);
+    echo $username;
+    if ($result && $user = $result->fetch_assoc()) {
+        if ($password === $user["password_hash"]) {
+            return array("returnCode" => '1', 'message' => "Server received request and processed: Login Successful");
+        } else {
+            return array("returnCode" => '0', 'message' => "Server received request and processed: Invalid password");
+        }
+    } else {
+        return array("returnCode" => '0', 'message' => "Server received request and processed: User not found\n", $username);
+    }
 }
+
+
 
 function requestProcessor($request)
 {
