@@ -17,7 +17,7 @@ function doLogin($username,$password) //this determines what return code is goin
 	$user = $result->fetch_assoc();
 	// check password
 	if ($statement->fetch()) {
-		if (password_verify($password, $user["password_hash"])) {
+		if (($password === $user['password_hash'])) {
    	            return array("returnCode" => '1', 'message'=>"Server received request and processed: Login Successful"); //this is the code that returns 0 or 1 based on if the credentials are there
 		} else {
 			return array("returnCode" => '0', 'message'=>"Server received request and processed: Login Failed"); //this is the code that returns 0 or 1 based on if the credentials are there
