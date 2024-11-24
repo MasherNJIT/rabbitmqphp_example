@@ -22,7 +22,7 @@ $request['password'] = "password";
 ^Use for testing purposes only without login page^
 */ 
 
-$request['type'] = "Login";
+$request['type'] = "login";
 $request['username'] = $_POST['username'];
 $request['password'] = $_POST['password'];
 
