@@ -18,9 +18,9 @@ function doLogin($username,$password) //this determines what return code is goin
 	// check password
 	if ($statement->fetch()) {
 		if (password_verify($password, $user["password_hash"])) {
-   	            return true;
+   	            return array("returnCode" => '1', 'message'=>"Server received request and processed: Login Successful"); //this is the code that returns 0 or 1 based on if the credentials are there
 		} else {
-			return false;
+			return array("returnCode" => '0', 'message'=>"Server received request and processed: Login Failed"); //this is the code that returns 0 or 1 based on if the credentials are there
 		}
 	}
 }
@@ -36,12 +36,12 @@ function requestProcessor($request) //this is what sends return code
   switch ($request['type'])
   {
     case "login":
-      //return doLogin($request['username'],$request['password']);
-      echo $request['username'] . $request['password'] //tests to make sure the username and password made it over to the database
+      return doLogin($request['username'],$request['password']);
+     
     case "validate_session":
       return doValidate($request['sessionId']);
   }
-  return array("returnCode" => '0', 'message'=>"Server received request and processed"); //this is the code that returns 0 or 1 based on if the credentials are there
+  //return array("returnCode" => '0', 'message'=>"Server received request and processed"); //this is the code that returns 0 or 1 based on if the credentials are there
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");
