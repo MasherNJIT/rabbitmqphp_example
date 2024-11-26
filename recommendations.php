@@ -44,8 +44,15 @@
             font-weight: 700;
             margin-left: 10px;
         }
-        input[type="radio"], input[type="checkbox"] {
+        input[type="radio"], input[type="checkbox"], input[type="text"] {
             margin-right: 10px;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
         button {
             width: 100%;
@@ -76,15 +83,16 @@
     <div class="form-container">
         <h2>Choose Your Preferences</h2>
         <form>
+            <p class="section-title">Location:</p>
+            <input type="text" id="location" name="location" placeholder="Enter a city or area"><br>
+            
             <p class="section-title">Budget:</p>
             <input type="radio" id="cheap" name="budget" value="Cheap">
             <label for="cheap">Cheaper Spots</label><br>
             <input type="radio" id="expensive" name="budget" value="Expensive">
             <label for="expensive">Expensive Spots</label><br>
-        </form>
 
-        <form>
-            <p class="section-title">Spaces:</p>
+            <p class="section-title">Destinations:</p>
             <input type="checkbox" id="parks" name="spaces" value="Parks">
             <label for="parks">Parks</label><br>
             <input type="checkbox" id="restaurants" name="spaces" value="Restaurants">
@@ -93,8 +101,8 @@
             <label for="shopping">Shopping Stores</label><br>
             <input type="checkbox" id="tourist" name="spaces" value="Tourist Spots">
             <label for="tourist">Tourist Spots</label><br>
-            <br>
-            <button type="submit">Submit</button>
+            
+            <button type="search">Search</button>
         </form>
     </div>
     <div class="header">
