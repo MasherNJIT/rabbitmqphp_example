@@ -2,8 +2,8 @@
 
 $host = "10.241.148.28";
 $dbname = "loginTest";
-$username = "evan";
-$password = "evanp";
+$username = "Evan";
+$password = "password";
 
 $mysqli = new mysqli(hostname: $host, username: $username, password: $password,  database: $dbname);
                      
