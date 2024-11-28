@@ -4,26 +4,54 @@ require_once('path.inc');
 require_once('get_host_info.inc');
 require_once('rabbitMQLib.inc');
 
-function doLogin($username, $password)
-{
-    echo $username;	
+function doLogin($uname, $passwd)
+{	
     $mysqli = require __DIR__ . "/database.php";
-    $sql = sprintf('SELECT password_hash FROM users WHERE uname = "%s"', $mysqli->real_escape_string($username));
-    echo $username;
+    $sql = sprintf('SELECT password_hash FROM users WHERE uname = "%s"',
+	    $mysqli->real_escape_string($uname));
     $result = $mysqli->query($sql);
-    echo $username;
+
     if ($result && $user = $result->fetch_assoc()) {
-        if ($password === $user["password_hash"]) {
-            return array("returnCode" => '1', 'message' => "Server received request and processed: Login Successful");
+	//if (password_verify($passwd, $user["password_hash"]; {    
+        if ($passwd === $user["password_hash"]) {
+		return array("returnCode" => '1',
+		       'message' => "Server received request and processed: Login Successful");
         } else {
-            return array("returnCode" => '0', 'message' => "Server received request and processed: Invalid password");
+		return array("returnCode" => '0', 
+		       'message' => "Server received request and processed: Invalid password");
         }
     } else {
-        return array("returnCode" => '0', 'message' => "Server received request and processed: User not found\n", $username);
+        return array("returnCode" => '0', 'message' => "Server received request and processed: User not found");
     }
 }
 
+function doRegister($uname, $passwd, $email)
+{
+	echo $uname; echo $passwd; echo $email;
+	$password_hash = password_hash($passwd, PASSWORD_DEFAULT);
+	$mysqli = require __DIR__ . "/database.php";
 
+	$sql = "INSERT INTO users (uname, email, password_hash)
+		VALUES (?, ?, ?)";
+	$stmt = $mysqli->stmt_init();
+
+	if (!$stmt->prepare($sql)) {
+           return array("returnCode" => "0", "message" => $mysqli->error);
+        }
+
+	$stmt->bind_param("sss", $uname, $email, $password_hash);
+	
+	if ($stmt->execute()) {
+          return array("returnCode" => "1", "message" => 'success');
+    
+        } else {
+            if ($mysqli->errno === 1062) {
+               return array("returnCode" => "0", "message" => 'email taken, registration unsuccessful']);
+            } else {
+                return array("returnCode" => "0", "message" => $mysqli->errno);
+           }
+  }
+}
 
 function requestProcessor($request)
 {
@@ -39,6 +67,8 @@ function requestProcessor($request)
       return doLogin($request['username'],$request['password']);
     case "validate_session":
       return doValidate($request['sessionId']);
+    case "register":
+      return doRegister($request['username'],$request['password'],$request['email']);
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
