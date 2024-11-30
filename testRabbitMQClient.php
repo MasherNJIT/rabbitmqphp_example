@@ -27,6 +27,7 @@ $request['type'] = "login";
 $request['username'] = $_POST['username'];
 $request['password'] = $_POST['password'];
 
+
 $request['message'] = $msg;
 $response = $client->send_request($request);
 //$response = $client->publish($request);
@@ -35,6 +36,7 @@ $response = $client->send_request($request);
 $registration['type'] = "registration";
 $registration['username'] = $_POST['username'];
 $registration['password'] = $_POST['password'];
+registration['email'] = $_POST['email'];
 
 $registration['message'] = $msg;
 $response = $client->send_request($registration);
