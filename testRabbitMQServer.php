@@ -6,10 +6,23 @@ require_once('rabbitMQLib.inc');
 
 function doLogin($username,$password) //this determines what return code is going to bne 
 {
-    // lookup username in databas
-    // check password
-    return true;
-    //return false if not valid
+    // lookup username in database
+	var_dump($request);
+	$username = $request['username'];
+	$password = $request['password'];
+	$mysqli = require __DIR__ . "/database.php";
+	$sql = sprintf('SELECT password_hash FROM
+       	users WHERE uname ="%s"', $mysqli->real_escape_string($username));
+	$result = $mysqli->query($sql);
+	$user = $result->fetch_assoc();
+	// check password
+	if ($statement->fetch()) {
+		if (($password === $user['password_hash'])) {
+   	            return array("returnCode" => '1', 'message'=>"Server received request and processed: Login Successful"); //this is the code that returns 0 or 1 based on if the credentials are there
+		} else {
+			return array("returnCode" => '0', 'message'=>"Server received request and processed: Login Failed"); //this is the code that returns 0 or 1 based on if the credentials are there
+		}
+	}
 }
 
 function requestProcessor($request) //this is what sends return code 
@@ -23,12 +36,12 @@ function requestProcessor($request) //this is what sends return code
   switch ($request['type'])
   {
     case "login":
-      //return doLogin($request['username'],$request['password']);
-      echo $request['username'] . $request['password'] //tests to make sure the username and password made it over to the database
+      return doLogin($request['username'],$request['password']);
+     
     case "validate_session":
       return doValidate($request['sessionId']);
   }
-  return array("returnCode" => '0', 'message'=>"Server received request and processed"); //this is the code that returns 0 or 1 based on if the credentials are there
+  //return array("returnCode" => '0', 'message'=>"Server received request and processed"); //this is the code that returns 0 or 1 based on if the credentials are there
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");
