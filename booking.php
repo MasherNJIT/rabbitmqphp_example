@@ -80,7 +80,7 @@
 <body>
     <div class="form-container">
         <h1>Hotel Booking</h1>
-        <form action="rate-review-handler.php" method="post" enctype="multipart/form-data">
+        <form action="booking-send.php" method="post" enctype="multipart/form-data">
             <label for="bookerName">Name of Booker</label>
             <input type="text" name="bookerName" id="bookerName" required>
             
