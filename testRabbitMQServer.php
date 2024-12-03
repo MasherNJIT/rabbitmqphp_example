@@ -12,22 +12,23 @@ function doLogin($uname, $passwd)
     $result = $mysqli->query($sql);
 
     if ($result && $user = $result->fetch_assoc()) {
-	//if (password_verify($passwd, $user["password_hash"]; {    
-        if ($passwd === $user["password_hash"]) {
+	if (password_verify($passwd, $user["password_hash"])) {
+		echo "success";
 		return array("returnCode" => '1',
 		       'message' => "Server received request and processed: Login Successful");
-        } else {
+	} else {
+		echo "bad password\n"; echo $user["password_hash"];
 		return array("returnCode" => '0', 
 		       'message' => "Server received request and processed: Invalid password");
         }
     } else {
+	echo "user not found";    
         return array("returnCode" => '0', 'message' => "Server received request and processed: User not found");
     }
 }
 
 function doRegister($uname, $passwd, $email)
 {
-	echo $uname; echo $passwd; echo $email;
 	$password_hash = password_hash($passwd, PASSWORD_DEFAULT);
 	$mysqli = require __DIR__ . "/database.php";
 
@@ -36,7 +37,7 @@ function doRegister($uname, $passwd, $email)
 	$stmt = $mysqli->stmt_init();
 
 	if (!$stmt->prepare($sql)) {
-           return array("returnCode" => "0", "message" => $mysqli->error);
+           return array("returnCode" => "0", "message" => 'stmt didnt prepare');
         }
 
 	$stmt->bind_param("sss", $uname, $email, $password_hash);
@@ -46,9 +47,9 @@ function doRegister($uname, $passwd, $email)
     
         } else {
             if ($mysqli->errno === 1062) {
-               return array("returnCode" => "0", "message" => 'email taken, registration unsuccessful']);
+               return array("returnCode" => "0", "message" => 'email taken, registration unsuccessful');
             } else {
-                return array("returnCode" => "0", "message" => $mysqli->errno);
+                return array("returnCode" => "0", "message" => 'other error ',$mysqli->errno);
            }
   }
 }
