@@ -18,7 +18,7 @@ $registration = array();
 
 
 //Sending Registration
-$registration['type'] = "registration";
+$registration['type'] = "register";
 $registration['username'] = $_POST['username'];
 $registration['password'] = $_POST['password'];
 $registration['email'] = $_POST['email'];
