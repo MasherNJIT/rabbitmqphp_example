@@ -4,108 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight Booking</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Roboto', sans-serif; 
-            background-color: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #5f6f96;
-        }
-        .form-container {
-            background-color: #E2E2E2;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            width: 500px;
-            text-align: left;
-        }
-        h1 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            font-weight: 700;
-            color: #333;
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 700;
-            font-size: 14px;
-            color: #333;
-        }
-        input[type="text"], input[type="date"], input[type="email"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #bfbfbf;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        input[type="radio"] {
-            margin-right: 10px;
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            background-color: #3d4afa;
+            background-color: #5f6f96;
             color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 700; 
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #3e2df7;
-        }
-        #emailSection {
-            margin-top: 15px;
         }
     </style>
 </head>
-<body>
-    <div class="form-container">
-        <h1>Flight Booking</h1>
-        <form action="rate-review-handler.php" method="post" enctype="multipart/form-data">
-            <label for="ticketOwner">Name of Ticket Owner</label>
-            <input type="text" name="ticketOwner" id="ticketOwner" required>
-            
-            <label for="origin">Where Are You Flying From?</label>
-            <input type="text" name="origin" id="origin" required>
-            
-            <label for="destination">What Is Your Destination?</label>
-            <input type="text" name="destination" id="destination" required>
-            
-            <label for="departureDate">When Are You Departing?</label>
-            <input type="date" name="departureDate" id="departureDate" required>
-            
-            <label for="returnDate">When Are You Returning?</label>
-            <input type="date" name="returnDate" id="returnDate">
-            
-            <!-- Notifications Section -->
-            <label>Would you like to receive notifications about your booking?</label>
-            <input type="radio" id="notifyYes" name="notifications" value="yes" required>
-            <label for="notifyYes" style="display: inline;">Yes</label>
-            <input type="radio" id="notifyNo" name="notifications" value="no" required>
-            <label for="notifyNo" style="display: inline;">No</label>
-            
-            <div id="emailSection" style="display: none;">
-                <label for="email">Enter your email address</label>
-                <input type="email" name="email" id="email" placeholder="e.g., yourname@example.com">
-            </div>
-            
-            <button type="submit">Book Now</button>
-        </form>
+<body class="d-flex align-items-center justify-content-center vh-100">
+    <div class="container">
+        <div class="card shadow-lg p-4" style="max-width: 500px; margin: auto; background-color: #ffffff; color: #333;">
+            <h1 class="card-title text-center mb-4">Flight Booking</h1>
+            <form action="rate-review-handler.php" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="ticketOwner" class="form-label">Name of Ticket Owner</label>
+                    <input type="text" class="form-control" name="ticketOwner" id="ticketOwner" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="origin" class="form-label">Where Are You Flying From?</label>
+                    <input type="text" class="form-control" name="origin" id="origin" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="destination" class="form-label">What Is Your Destination?</label>
+                    <input type="text" class="form-control" name="destination" id="destination" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="departureDate" class="form-label">When Are You Departing?</label>
+                    <input type="date" class="form-control" name="departureDate" id="departureDate" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="returnDate" class="form-label">When Are You Returning?</label>
+                    <input type="date" class="form-control" name="returnDate" id="returnDate">
+                </div>
+                
+                <!-- Notifications Section -->
+                <div class="mb-3">
+                    <label class="form-label">Would you like to receive notifications about your booking?</label>
+                    <div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="notifyYes" name="notifications" value="yes" required>
+                            <label class="form-check-label" for="notifyYes">Yes</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" id="notifyNo" name="notifications" value="no" required>
+                            <label class="form-check-label" for="notifyNo">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3" id="emailSection" style="display: none;">
+                    <label for="email" class="form-label">Enter your email address</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="e.g., yourname@example.com">
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100">Book Now</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -125,5 +84,7 @@
             }
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+>
