@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #5f6f96;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .form-container {
+            background-color: #E2E2E2;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            padding: 30px;
+            color: #333;
+        }
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        label {
+            font-size: 0.9rem;
+            margin-bottom: 5px; /* Ensures consistent spacing below labels */
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            font-size: 0.9rem;
+        }
+        .form-control, .dropdown-toggle {
+            font-size: 0.9rem;
+            margin-top: 5px; /* Matches spacing of other inputs */
+        }
+        .dropdown-menu {
+            max-height: 200px; /* Limit dropdown height */
+            overflow-y: auto; /* Scroll if too long */
+        }
+        .dropdown-toggle {
+            background-color: #fff;
+            color: #333;
+            border: 1px solid #ced4da;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .dropdown-toggle:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Hotel Booking</h1>
+        <form action="booking-send.php" method="post">
+            <div class="mb-3">
+                <label for="bookerName" class="form-label">Name of Booker</label>
+                <input type="text" class="form-control" name="bookerName" id="bookerName" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="numGuest" class="form-label">Number of Guests</label>
+                <input type="number" class="form-control" name="numGuest" id="numGuest" min="1" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="checkinDate" class="form-label">Expected Check-In Date</label>
+                <input type="date" class="form-control" name="checkinDate" id="checkinDate" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="checkinTime" class="form-label">Expected Check-In Time</label>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="checkinTimeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Check-In Time
+                    </button>
+                    <ul class="dropdown-menu" id="checkinTimeDropdown">
+                        <!-- Time options populated by JavaScript -->
+                    </ul>
+                    <input type="hidden" id="checkinTime" name="checkinTime" required>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="checkoutDate" class="form-label">Expected Check-Out Date</label>
+                <input type="date" class="form-control" name="checkoutDate" id="checkoutDate" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="checkoutTime" class="form-label">Expected Check-Out Time</label>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="checkoutTimeButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        Select Check-Out Time
+                    </button>
+                    <ul class="dropdown-menu" id="checkoutTimeDropdown">
+                        <!-- Time options populated by JavaScript -->
+                    </ul>
+                    <input type="hidden" id="checkoutTime" name="checkoutTime" required>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="hotelName" class="form-label">Which Hotel Will You Be Booking?</label>
+                <input type="text" class="form-control" name="hotelName" id="hotelName" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Book Now</button>
+        </form>
+    </div>
+
+    <script>
+        // Populate dropdown with time options
+        function populateTimeDropdown(dropdownId, buttonId, hiddenInputId) {
+            const dropdown = document.getElementById(dropdownId);
+            const button = document.getElementById(buttonId);
+            const hiddenInput = document.getElementById(hiddenInputId);
+            const times = Array.from({ length: 48 }, (_, i) => {
+                const hours = String(Math.floor(i / 2)).padStart(2, '0');
+                const minutes = i % 2 === 0 ? '00' : '30';
+                const suffix = hours >= 12 ? 'PM' : 'AM';
+                const hourIn12 = ((hours % 12) || 12) + ':' + minutes + ' ' + suffix;
+                return hourIn12;
+            });
+
+            times.forEach(time => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.className = 'dropdown-item';
+                a.href = '#';
+                a.textContent = time;
+                a.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    button.textContent = time;
+                    hiddenInput.value = time;
+                });
+                li.appendChild(a);
+                dropdown.appendChild(li);
+            });
+        }
+
+        populateTimeDropdown('checkinTimeDropdown', 'checkinTimeButton', 'checkinTime');
+        populateTimeDropdown('checkoutTimeDropdown', 'checkoutTimeButton', 'checkoutTime');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
