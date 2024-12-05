@@ -29,7 +29,7 @@ $booking ['checkinDate'] = $_POST['checkinDate'];
 $booking ['checkOutDate'] = $_POST['checkOutDate'];
 
 $booking ['message'] = $msg;
-$response = $client->send_request($booking );
+$response = $client->send_request($booking);
 
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the login is successful 
