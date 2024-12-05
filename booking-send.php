@@ -18,16 +18,16 @@ $booking = array();
 
 
 //Sending Registration
-$booking ['type'] = "booking";
-$booking ['bookerName'] = $_POST['bookerName'];
-$booking ['numGuest'] = $_POST['numGuest'];
-$booking ['country'] = "Poland";
-$booking ['city'] = "Warsaw";
-$booking ['hotelName'] = "Polish Hotel";
-$booking ['checkinDate'] = $_POST['checkinDate'];
-$booking ['checkOutDate'] = $_POST['checkOutDate'];
+$booking['type'] = "booking";
+$booking['bookerName'] = $_POST['bookerName'];
+$booking['numGuest'] = $_POST['numGuest'];
+$booking['country'] = "Poland";
+$booking['city'] = "Warsaw";
+$booking['hotelName'] = "Polish Hotel";
+$booking['checkinDate'] = $_POST['checkinDate'];
+$booking['checkOutDate'] = $_POST['checkOutDate'];
 
-$booking ['message'] = $msg;
+$booking['message'] = $msg;
 $response = $client->send_request($booking);
 
 if($response['returnCode'] == 1) //This picks up return code 
