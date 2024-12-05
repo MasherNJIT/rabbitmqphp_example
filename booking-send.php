@@ -20,7 +20,6 @@ $booking = array();
 //Sending Registration
 $booking ['type'] = "booking";
 $booking ['bookerName'] = $_POST['bookerName'];
-$booking ['bookerName'] = $_POST['bookerName'];
 $booking ['numGuest'] = $_POST['numGuest'];
 $booking ['country'] = "Poland"
 $booking ['city'] = "Warsaw";
