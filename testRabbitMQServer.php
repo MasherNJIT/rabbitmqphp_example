@@ -13,7 +13,7 @@ function doError($error)
 function doLogin($uname, $passwd)
 {	
     $mysqli = require __DIR__ . "/database.php";
-    $sql = sprintf('SELECT password_hash FROM users WHERE uname = "%s"',
+    $sql = sprintf('SELECT password_hash FROM travel_users WHERE full_name = "%s"',
 	    $mysqli->real_escape_string($uname));
     $result = $mysqli->query($sql);
 
@@ -35,8 +35,8 @@ function doRegister($uname, $passwd, $email)
 	$password_hash = password_hash($passwd, PASSWORD_DEFAULT);
 	$mysqli = require __DIR__ . "/database.php";
 
-	$sql = "INSERT INTO users (uname, email, password_hash, join_date)
-		VALUES (?, ?, ?, CURDATE())";
+	$sql = "INSERT INTO travel_users (full_name, email, password_hash)
+		VALUES (?, ?, ?)";
 	$stmt = $mysqli->stmt_init();
 
 	if (!$stmt->prepare($sql)) {
@@ -61,8 +61,8 @@ function doBooking($bookerName, $numGuest, $country, $city, $hotelName, $checkin
 {
 	$mysqli = require __DIR__ . "/database.php";
 
-        $sql = "INSERT INTO bookings (user_id, guest, country, city, check_in, check_out, hotel_name)
-                VALUES (?, ?, ?, ?, CURDATE(), CURDATE(), ?)";
+        $sql = "INSERT INTO travel_bookings (user_id, guest, country, city, check_in, check_out, hotel_name)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli->stmt_init();
 
         if (!$stmt->prepare($sql)) {
