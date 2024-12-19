@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<!-- DEVELOPER: Mike Gabriel Ayson, IS117-006, Spring 2023 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome To Our Travel Site!</title>
+    <title>Home</title>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -35,7 +33,7 @@
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="booking.php">Book a Flight or a Hotel</a>
+                            <a class="nav-link" href="booking.php">Search a Location</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="contact.html">Review a Location</a>
@@ -45,11 +43,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbardrop"
                                data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Venting
+                                Booking
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="venting.html">Venting Tips</a>
-                                <a class="dropdown-item" href="vent_box.html">Venting Box</a>
+                                <a class="dropdown-item" href="booking.php">Book a Flight</a>
+                                <a class="dropdown-item" href="vent_box.html">Book a Hotel</a>
                                 
                             </div>
                         </li>
@@ -58,22 +56,16 @@
             </nav>
         <div class="row">
         <p class="col-3">
-            <h2>Rest and Relax</h2>
-            <h3>Our Goal for the website:</h3>
+            <h2>Welcome to our travel site!</h2>
+            <h3>Here is our reccomended locaations</h3>
             <div> 
                 <p id="intro"> 
-                The ultimate goal of this website is not to solve the issues of those affilicted with with mental issues and mental stress, but rather it is aimed to provide an outlet for people suffering 
-                from stress and provide the neccesary tips for self treatment. The website also provides a list of different hotlines and different websites more qualified to help serious issues 
-                The goal of this particular site is to act as either the stepping stone to better care or simply a way for those to safely and healthly vent out frustrations. 
+               
                 <div class="col-4">
-                    <p> It also VERY important to note, all information provided on these pages are tips and tricks that I have personally tried and everyone's cases are different. I am by no means a professional 
-                        in dealing with mental issues If need be, 
-                        its important to seek out professional help if this is a daily occurence or the case is severe. If you are financially incapable of seeking professional help, there are still plenty of national hotlines 
-                        that provide better help than this website. They are listed below. (DISLCAIMER: ALL IMAGES OM THIS WEBSITE ARE FOR EDUCATIONAL PURPOSES AND WERE FOUND ONLINE).
+                    <p> 
                     </p>
                     <ul> 
-                        <li> Heres the national panic and anxiety attack hotline: 1-800-273-8255 </li>
-                        <li> Heres the national suicide prevention hotline: 988 </li>
+                  
                     </ul>
                 </div>
                
@@ -96,14 +88,7 @@
                     }
                     </style>
                     <div class="card">
-                        <h4> Our Founder</h4> <!-- Bootstrap card -->
-                        <img src="images/bruh2.jpg" alt="Avatar" style="width:75%">
-                        <div class="container">
-                        <h5><b>Peter Griffen</b></h5>
-                        <p class="putLeft">Local quahog resident, knick-knack enthusiasts</p>
-                        <p> Enjoys: Driving, adventuring, creative ideas</p>
-                        <p>Phone: 362-523-5321, Email: griffenbro@yahoo.com</p>
-                        </div>
+                      
                     </div>
                 </p> 
                 </p>
@@ -111,59 +96,12 @@
             
         </p>
         
-        <p class="col-2">Where Do You Feel Calm? Choose a place and imagine yourself there!
-            <div class="w3-content w3-display-container"> <!-- Found on W3 Schools as I wanted to have some kind of interactive gallery-->
-                <img class="slideShow" src="images/tranq1.jpg.crdownload" alt="locations" style="width:25%">
-            <img class="slideShow" src="images/tranq2.jpg" alt="locations"  style="width:25%">
-            <img class="slideShow" src="images/tranq3.jpg" alt="locations" style="width:25%"> <!-- I can essentially add even more to this list as I please its kinda like a big array-->
-                <div class="w3-center w3-display-bottommiddle" style="width:100%">
-                <button class="swapButton" onclick="plusDivs(-1)">Click To Cycle Through Locations</button>
-                  <span class="w3-badge demo w3-border" onclick="currentDiv(1)"></span>
-                  <span class="w3-badge demo w3-border" onclick="currentDiv(2)"></span>
-                  <span class="w3-badge demo w3-border" onclick="currentDiv(3)"></span>
-                </div>
-              </div>
-        </p>
+      
 
         
-        <script> 
-            var slideIndex = 1;
-            showDivs(slideIndex);
-
-            function plusDivs(n) {
-            showDivs(slideIndex += n);
-            }
-
-            function showDivs(n) {
-            var i;
-            var x = document.getElementsByClassName("slideShow");
-            if (n > x.length) {slideIndex = 1}
-            if (n < 1) {slideIndex = x.length} ;
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            x[slideIndex-1].style.display = "block";
-            }
-        </script>
+       
             
-        <p class="col-1"> Where to start? 
-            <ul class="noBullets"> 
-                <li class="listImages"> 
-                    <p> Click this image to go to our tips page on how to deal with stress </p>
-                    <a href="tips.html"> <img class ="imageButtons" src="images/firstImage.jpg" alt="mainImage"> </a>
-                </li>
-
-                <li class="listImages"> 
-                    <p> Click this image for proper venting techniques  </p>
-                    <a href="venting.html"> <img class ="imageButtons" src="images/secondImage.jpg" alt="mainImage"> </a>
-                </li> 
-
-                <li class="listImages"> 
-                    <p> Click this image to go to venting box </p>
-                    <a href="vent_box.html"> <img class ="imageButtons" src="images/thirdImage.jpg" alt="mainImage"> </a>
-                </li>
-            </ul>
-        </p>
+        
         </div>
     
 </div>
@@ -171,7 +109,7 @@
  <footer class="footer page-footer font-small ">
      <div class="container">
         <div class="row">
-            <span class="text-muted">&copy; Mike Gabriel Ayson, 2023 |  Terms Of Use  |  Privacy Statement</span>
+            <span class="text-muted">&copy; Team BackOfTheRoom, 2024 |  Terms Of Use  |  Privacy Statement</span>
         </div>
      </div>
   </footer>
@@ -186,6 +124,7 @@
 
 </body>
 </html>
+
 <?php
 
 ?> 
