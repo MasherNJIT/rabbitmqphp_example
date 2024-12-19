@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +11,7 @@
     <style>
         .filter-dropdown {
             margin-right: 20px;
-            margin-top: 4px;
+            margin-top: 4px; /* Adjust this value to fine-tune alignment */
         }
         .dropdown-menu {
             padding: 15px;
@@ -66,7 +67,7 @@
                     Filter Options
                 </button>
                 <div class="dropdown-menu" aria-labelledby="filterDropdown">
-                    <form id="filterForm">
+                    <form method="POST" id="filterForm">
                         <?php
                         // Include the database connection
                         $mysqli = require 'database.php';
@@ -90,7 +91,7 @@
                             <input type="number" id="maxPrice" name="maxPrice" class="form-control" value="<?php echo $maxPrice; ?>" min="0">
                         </div>
                         <!-- Apply Button -->
-                        <button type="button" class="btn btn-primary btn-apply" id="applyFilters">Apply</button>
+                        <button type="submit" class="btn btn-primary btn-apply" name="applyFilters">Apply</button>
                     </form>
                 </div>
             </div>
@@ -100,7 +101,42 @@
             </div>
         </div>
         <div id="recommendations" class="row gy-4 mt-3">
-            <!-- Dynamic results will be displayed here -->
+            <!-- PHP to Display Recommendations -->
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['applyFilters'])) {
+                // Get filter values from the form
+                $minPrice = $_POST['minPrice'] ?? 0;
+                $maxPrice = $_POST['maxPrice'] ?? 100000;
+
+                // Sanitize inputs
+                $minPrice = $mysqli->real_escape_string($minPrice);
+                $maxPrice = $mysqli->real_escape_string($maxPrice);
+
+                // Fetch recommendations based on filters
+                $query = "SELECT * FROM Recommendations WHERE price BETWEEN ? AND ?";
+                $stmt = $mysqli->prepare($query);
+                $stmt->bind_param("ii", $minPrice, $maxPrice);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="col-md-4">';
+                        echo '<div class="card">';
+                        echo '<img src="' . htmlspecialchars($row['image_url']) . '" class="card-img-top" alt="' . htmlspecialchars($row['name']) . '">';
+                        echo '<div class="card-body">';
+                        echo '<h5 class="card-title">' . htmlspecialchars($row['name']) . '</h5>';
+                        echo '<p class="card-text"><strong>Location:</strong> ' . htmlspecialchars($row['location']) . '</p>';
+                        echo '<p class="card-text"><strong>Price:</strong> $' . htmlspecialchars($row['price']) . '</p>';
+                        echo '</div>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No results found with the selected filters.</p>';
+                }
+            }
+            ?>
         </div>
     </div>
 </div>
@@ -115,44 +151,7 @@
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    // Event listener for the filter button
-    document.getElementById('applyFilters').addEventListener('click', async () => {
-        const minPrice = document.getElementById('minPrice').value || 0;
-        const maxPrice = document.getElementById('maxPrice').value || 100000; // Large default value
-
-        try {
-            // Fetch filtered results
-            const response = await fetch(`filter.php?minPrice=${minPrice}&maxPrice=${maxPrice}`);
-            const results = await response.json();
-
-            // Display results
-            const recommendationsContainer = document.getElementById('recommendations');
-            recommendationsContainer.innerHTML = ''; // Clear previous results
-
-            if (results.length > 0) {
-                results.forEach(item => {
-                    const card = `
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="${item.image_url}" class="card-img-top" alt="${item.name}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${item.name}</h5>
-                                    <p class="card-text"><strong>Location:</strong> ${item.location}</p>
-                                    <p class="card-text"><strong>Price:</strong> $${item.price}</p>
-                                </div>
-                            </div>
-                        </div>`;
-                    recommendationsContainer.innerHTML += card;
-                });
-            } else {
-                recommendationsContainer.innerHTML = '<p>No results found with the selected filters.</p>';
-            }
-        } catch (error) {
-            console.error('Error fetching results:', error);
-        }
-    });
-</script>
 </body>
-</html> 
+</html>
+
+ 
