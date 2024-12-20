@@ -1,7 +1,7 @@
 <?php
 
 $host = "10.241.148.28";
-$dbname = "loginTest1";
+$dbname = "loginTest";
 $username = "bobby";
 $password = "masher";
 
