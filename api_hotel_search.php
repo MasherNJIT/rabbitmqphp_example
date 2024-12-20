@@ -41,6 +41,6 @@ foreach ($body_2['data'] as $hotel) {
      $hotelNames[] = $hotel["name"];
 }
 
-echo json_encode($hotelNames);
+
 
 ?>
