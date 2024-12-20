@@ -30,6 +30,8 @@ function doLogin($uname, $passwd)
     }
 }
 
+
+
 function doRegister($uname, $passwd, $email)
 {
 	$password_hash = password_hash($passwd, PASSWORD_DEFAULT);
@@ -79,6 +81,28 @@ function doBooking($bookerName, $numGuest, $country, $city, $hotelName, $checkin
 
 }
 
+function doReview($)
+{
+	$mysqli = require __DIR__ . "/database.php";
+
+        $sql = "INSERT INTO travel_bookings (user_id, guest, country, city, check_in, check_out, hotel_name)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $mysqli->stmt_init();
+
+        if (!$stmt->prepare($sql)) {
+           return array("returnCode" => "0", "message" => 'stmt didnt prepare');
+	}
+	
+	$stmt->bind_param("sssssss", $bookerName, $numGuest, $country, $city, $checkinDate, $checkOutDate, $hotelName);
+
+        if ($stmt->execute()) {
+          return array("returnCode" => "1", "message" => 'success');
+	} else {
+	  return array("returnCode" => "0", "message" => 'fail');
+	}
+
+}
+
 $err = false;
 function requestProcessor($request)
 {
@@ -100,7 +124,9 @@ function requestProcessor($request)
       $err = true;
       return doError($request['error']);
     case "booking":
-      return doBooking($request['bookerName'],$request['numGuest'],$request['country'],$request['city'],$request['hotelName'],$request['checkinDate'],$request['checkOutDate']);	    
+      return doBooking($request['bookerName'],$request['numGuest'],$request['country'],$request['city'],$request['hotelName'],$request['checkinDate'],$request['checkOutDate']);
+    case "review"; 
+	return doReview($request['']
   }
   return array("returnCode" => '0', 'message'=>"Server received request and processed");
 }
