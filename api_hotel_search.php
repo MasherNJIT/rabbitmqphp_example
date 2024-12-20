@@ -1,14 +1,14 @@
 <?php
 
 require_once 'vendor\rmccue\requests\library\Requests.php';
-/*
-$hostname = '';
-$username = '';
-$password = '';
-$dbname = '';
+
+$hostname = '10.241.148.28';
+$username = 'bobby';
+$password = 'masher';
+$dbname = 'loginTest';
 $tablename = 'api_hotels';
 $mysqli = new mysqli($hostname, $username, $password, $dbname);
-*/
+
 Requests::register_autoloader();
 
 $url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
@@ -46,8 +46,16 @@ $hotels=json_encode($body_2, JSON_PRETTY_PRINT);
 
 echo $hotels;
 
+$name = '';
+$cityCode = '';
+$country = '';
+
 foreach ($body_2['data'] as $hotel) {
-    // $sql_query = 'INSERT INTO $tablename (hotel_name, city, country) VALUES('$hotel['name']', '$hotel['iataCode']', '$hotel['address']['countryCode']');';
+
+        $name= $hotel['name'];
+        $hotel['iataCode'] = $cityCode;
+        $hotel['address']['countryCode'] = $country;
+        $sql_query = 'INSERT INTO api_hotels (hotel_name, city, country) VALUES($name, $cityCode, $country)';
 }
 
 ?>
