@@ -14,6 +14,16 @@ else
   $msg = "login request sent";
 }
 
+$logging = new rabbitMQClient("logRabbit.ini","loggingServer");
+if (isset($argv[1]))
+{
+  $msg = $argv[1];
+}
+else
+{
+  $msg = "logging request sent success!";
+}
+
 $request = array();
 $registration = array(); 
 /*
@@ -29,9 +39,14 @@ $request['password'] = $_POST['password'];
 
 
 $request['message'] = $msg;
+
+$client_log = array(); 
+$client_log['type'] = "logs";
+$client_log['message'] = $request['message'];
+
 $response = $client->send_request($request);
 //$response = $client->publish($request);
-
+$client_response = $logging->send_request($client_log) //should send logs from the original response to a different log 
 
 
 if($response['returnCode'] == 1) //This picks up return code 
