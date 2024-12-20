@@ -45,6 +45,7 @@ function requestProcessor($request) //this is what sends return code
 }
 
 $server = new rabbitMQServer("testRabbitMQ.ini","testServer");
+$loggingServer = new rabbitMQServer("logRabbit.ini", "logServer"); 
 
 echo "testRabbitMQServer BEGIN".PHP_EOL;
 $server->process_requests('requestProcessor');
