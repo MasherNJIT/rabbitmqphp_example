@@ -16,6 +16,7 @@ else
 
 $request = array();
 $registration = array(); 
+$review = array();
 /*
 $request['type'] = "Login";
 $request['username'] = "steve";
@@ -23,9 +24,9 @@ $request['password'] = "password";
 ^Use for testing purposes only without login page^
 */ 
 //Sending Login
-$request['type'] = "review";
-$request['username'] = $_POST['username'];
-$request['password'] = $_POST['password'];
+$review['type'] = "review";
+$review['username'] = $_POST['username'];
+$review['password'] = $_POST['password'];
 
 
 $request['message'] = $msg;
