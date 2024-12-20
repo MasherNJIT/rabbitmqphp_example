@@ -48,6 +48,8 @@ $response = $client->send_request($request);
 //$response = $client->publish($request);
 $client_response = $logging->send_request($client_log) //should send logs from the original response to a different log 
 
+//INSERT CODE TO APPEND TO AS universal.log
+
 
 if($response['returnCode'] == 1) //This picks up return code 
 //if the front-end recieves a message from the MQ with a return code of 1, it means the login is successful 
