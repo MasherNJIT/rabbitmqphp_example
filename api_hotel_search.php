@@ -1,6 +1,6 @@
 <?php
 
-require_once '/var/www/register/vendor/rmccue/requests/library/Requests.php';
+require_once 'rpc/vendor/rmccue/requests/library/Requests.php';
 
 Requests::register_autoloader();
 
