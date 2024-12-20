@@ -1,14 +1,14 @@
 <?php
 
 require_once 'vendor\rmccue\requests\library\Requests.php';
-
+/*
 $hostname = '';
 $username = '';
 $password = '';
 $dbname = '';
 $tablename = 'api_hotels';
 $mysqli = new mysqli($hostname, $username, $password, $dbname);
-
+*/
 Requests::register_autoloader();
 
 $url = 'https://test.api.amadeus.com/v1/security/oauth2/token';
@@ -28,10 +28,8 @@ $token = $body->access_token;
 
 $endpoint = 'https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city';
 
-
-
 $hotel_data = array(
-    'cityCode' => 'EWR'
+    'cityCode' => 'JFK'
 );
 
 $params = http_build_query($hotel_data);
@@ -46,8 +44,10 @@ $body_2 = json_decode($response->body, true);
 
 $hotels=json_encode($body_2, JSON_PRETTY_PRINT);
 
+echo $hotels;
+
 foreach ($body_2['data'] as $hotel) {
-     $sql_query = 'INSERT INTO $tablename (hotel_name, city, country) VALUES('$hotel['name']', '$hotel['iataCode']', '$hotel['address']['countryCode']');';
+    // $sql_query = 'INSERT INTO $tablename (hotel_name, city, country) VALUES('$hotel['name']', '$hotel['iataCode']', '$hotel['address']['countryCode']');';
 }
 
 ?>
