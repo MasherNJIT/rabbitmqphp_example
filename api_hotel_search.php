@@ -1,7 +1,6 @@
 <?php
 
 require_once '/var/www/register/vendor/rmccue/requests/library/Requests.php';
-require_once '/var/www/register/vendor/rmccue/requests/library/Deprecated.php';
 
 Requests::register_autoloader();
 
