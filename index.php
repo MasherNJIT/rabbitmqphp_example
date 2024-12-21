@@ -1,5 +1,6 @@
 
 <html lang="en">
+    <!-- IMPORTANT NOTE: Code from here was taken from Mike's IS117 final project which is based of Professor Chiusano's lecture, the conents of the file and the css bootstrap files are as well-->
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
